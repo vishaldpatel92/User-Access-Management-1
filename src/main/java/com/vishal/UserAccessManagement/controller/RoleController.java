@@ -12,9 +12,9 @@ public class RoleController {
     @Autowired
     private RoleRepository roleRepository;
 
-    /*@PostMapping
-    public ResponseEntity<Role> createRole(@RequestBody Role role) {
-        Role createdRole = roleRepository.createRole(role);
+   /* @PostMapping
+    public ResponseEntity<Optional<Role>> createRole(@RequestBody Role role) {
+        Optional<Role> createdRole = roleRepository.findByRoleName(role.getRoleName());
         return ResponseEntity.status(HttpStatus.CREATED).body(createdRole);
     }*/
 }

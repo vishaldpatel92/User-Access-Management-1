@@ -43,7 +43,7 @@ public class ProductController {
                 }).orElseThrow(() -> new ProductNotFoundException(id));
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/product/{id}")
     String deleteProduct(@PathVariable Long id){
         if(!productRepository.existsById(id)){

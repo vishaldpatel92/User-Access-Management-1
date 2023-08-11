@@ -15,6 +15,11 @@ public class Product {
     @Column(name="price",nullable = false)
     private double price;
 
+    public Product(String productName, double price) {
+        this.productName = productName;
+        this.price = price;
+    }
+
     public Long getProductId() {
         return productId;
     }

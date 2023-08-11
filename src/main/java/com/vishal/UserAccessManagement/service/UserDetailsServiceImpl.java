@@ -1,7 +1,8 @@
 package com.vishal.UserAccessManagement.service;
 
-import com.vishal.UserAccessManagement.model.User;
 import com.vishal.UserAccessManagement.model.Role;
+import com.vishal.UserAccessManagement.model.User;
+import com.vishal.UserAccessManagement.repository.RoleRepository;
 import com.vishal.UserAccessManagement.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -19,11 +20,17 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
+    private RoleRepository roleRepository;
 
     @Autowired
     public UserDetailsServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
+
+   /* @Autowired
+    public Optional<User> findUserByUsernameAndPassword(String username, String password) {
+        return userRepository.findByUsernameAndPassword(username, password);
+    }*/
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -38,7 +45,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return org.springframework.security.core.userdetails.User.builder()
                 .username(user.getUsername())
                 .password(user.getPassword())
-                .authorities(authorities)
+                .roles(user.getRole().toString())
                 .build();
+    }
+    public boolean isAdmin(User user) {
+        return user.getRole().equals("ADMIN");
     }
 }
